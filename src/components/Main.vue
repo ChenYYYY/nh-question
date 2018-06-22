@@ -10,16 +10,13 @@
   </div>
 </template>
 <script lang='ts'>
-import Vue from 'vue'
-import { Component } from 'vue-property-decorator'
+import { Vue, Component } from 'vue-property-decorator'
 
 @Component
 export default class Main extends Vue {
-  // initial data
   baseUrl: string = 'http://a.b.c'
   bannerUrl: string = '/banner.png'
   text: string = '南航在2018年6月开始在进出北京、上海的国内航线上推出新品餐食，现向广大旅客朋友征询意见，以指导我们进一步改进餐食服务质量，为您带来更好的机上餐饮体验！'
-  // computed
   get banner (): string {
     return this.baseUrl + this.bannerUrl
   }
