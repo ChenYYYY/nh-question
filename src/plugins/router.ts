@@ -6,7 +6,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/main',
+      path: '/',
       component: () => import('@/components/Main.vue')
     },
     {
