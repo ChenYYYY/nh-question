@@ -1,8 +1,14 @@
 <template>
-  <div class="header-wrap flex flex-row">
-    <div v-for="n in maxlength" :key="n" class="header-item">
-      <div :class="['order-item', { active: n == order }]">
-        <span class="order-text pos-center">{{n}}</span>
+  <div class="header-wrap">
+    <div class="header-tips">
+      总共{{maxlength}}题，占用您一分钟
+    </div>
+    <div class="flex flex-row">
+      <div v-for="n in layMaxlength" :key="n" class="header-item">
+        <div v-if="n % 2 == 0" class="order-split"></div>
+        <div v-else :class="['order-item', { active: order[(Math.ceil(n / 2) - 1)] }]">
+          <span class="order-text pos-center">{{Math.ceil(n / 2)}}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -12,12 +18,14 @@ import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
 @Component
 export default class Header extends Vue {
-  @Prop({ default: 1 })
-  order: number
-  maxlength: number = 6
+  @Prop() order: boolean[]
+  maxlength: number = 4
+  get layMaxlength () {
+    return this.maxlength * 2 - 1
+  }
 }
 </script>
-<style lang="less">
+<style>
 .ta-c {
   text-align: center;
 }
@@ -26,6 +34,9 @@ export default class Header extends Vue {
 }
 .flex-row {
   flex-flow: row;
+}
+.flex-wrap {
+  flex-wrap: wrap;
 }
 .fx-1 {
   flex: 1;
@@ -39,21 +50,44 @@ export default class Header extends Vue {
   text-align: center;
   margin: auto;
 }
-.header-wrap:extend(.flex, .flex-row) {
-  background-color: #fcfcfc;
+.header-wrap {
+  padding: 16px;
+  background-color: #d6ecfd;
 }
-.header-item:extend(.fx-1, .ta-c) {
+.header-tips {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.header-item {
+  position: relative;
+  flex: 1;
+  text-align: center;
+}
+.order-split {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  box-sizing: border-box;
+  width: 100%;
+  height: 1px;
+  border-top: 1px dashed #2d639d;
 }
 .order-item {
   position: relative;
   box-sizing: border-box;
   border-radius: 50%;
-  background-color: #fff;
-  padding-bottom: 100%;
-  &.active {
-    background-color: blue;
-    color: #fff;
-  }
+  background-color: #ccc;
+  width: 36px;
+  height: 36px;
+  color: #fff;
+  margin: 0 auto;
+}
+.order-item.active {
+  background-color: #63afeb;
+  border: 2px solid #2d639d;
 }
 .order-text {
   display: block;

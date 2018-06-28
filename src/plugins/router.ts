@@ -10,8 +10,12 @@ export default new Router({
       component: () => import('@/components/Main.vue')
     },
     {
-      path: '/question/:order',
+      path: '/question',
       component: () => import('@/components/Question.vue')
+    },
+    {
+      path: '/finish',
+      component: () => import('@/components/Finish.vue')
     }
   ]
 })
